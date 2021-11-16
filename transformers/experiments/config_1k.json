@@ -1,0 +1,77 @@
+{
+  "source_lang": "en",
+  "target_lang": "ta",
+  "sentencepiece":
+  {
+    "script_path": "../fairseq/scripts/spm_train.py",
+    "input": "./cc_en-ta/data/en-ta.en,./cc_en-ta/data/en-ta.ta",
+    "model_save_path": "./cc_en-ta/models/sentencepiece/sentencepiece.bpe",
+    "vocab_size": 10000
+  },
+  "encoder":
+  {
+    "encoder_script_path": "../fairseq/scripts/spm_encode.py",
+    "train":
+    {
+      "inputs": "./cc_en-ta/data/en-ta.en ./cc_en-ta/data/en-ta.ta",
+      "outputs": "./cc_en-ta/encoded/train.bpe.en ./cc_en-ta/encoded/train.bpe.ta"
+    },
+    "valid":
+    {
+      "inputs": "./cc_en-ta/data/dev_en-ta.en ./cc_en-ta/data/dev_en-ta.ta",
+      "outputs": "./cc_en-ta/encoded/valid.bpe.en ./cc_en-ta/encoded/valid.bpe.ta"
+    },
+    "test":
+    {
+      "inputs": "./cc_en-ta/data/test_en-ta.en ./cc_en-ta/data/test_en-ta.ta",
+      "outputs": "./cc_en-ta/encoded/test.bpe.en ./cc_en-ta/encoded/test.bpe.ta"
+    },
+    "test_domain":
+    {
+      "inputs": "./cc_en-ta/data/test_en-ta.en ./cc_en-ta/data/test_en-ta.ta",
+      "outputs": "./cc_en-ta/encoded/test.bpe.en ./cc_en-ta/encoded/test.bpe.ta"
+    }
+  },
+  "preprocess":
+  {
+    "trainpref": "./cc_en-ta/encoded/train.bpe",
+    "validpref": "./cc_en-ta/encoded/valid.bpe",
+    "testpref": "./cc_en-ta/encoded/test.bpe",
+    "destdir": "./cc_en-ta/preprocess/"
+  },
+  "train":
+  {
+    "encoder-layers": 3,
+    "decoder-layers": 3,
+    "encoder-embed-dim": 512,
+    "decoder-embed-dim" : 512,
+    "encoder-ffn-embed-dim" : 1024,
+    "decoder-ffn-embed-dim" : 1024,
+    "encoder-attention-heads" : 2,
+    "decoder-attention-heads" : 2,
+    "dropout" : 0.4,
+    "attention-dropout" : 0.2,
+    "relu-dropout": 0.2,
+    "weight-decay": 0.0001,
+    "label-smoothing": 0.2,
+    "clip-norm": 0,
+    "warmup-updates": 2000,
+    "lr": 1e-3,
+    "batch-size": 32,
+    "update-freq": 4,
+    "max-epoch": 200,
+    "keep-best-checkpoints": 10,
+    "tensorboard-logdir": "./cc_en-ta/logs",
+    "save-dir": "./cc_en-ta/models/checkpoints/"
+  },
+  "test":
+  {
+    "best_model_path":"./cc_en-ta/models/checkpoints/checkpoint_best.pt",
+    "save_path_output":"./cc_en-ta/outputs/output_{}.txt",
+    "save_path_hypothesis":"./cc_en-ta/outputs/output_{}.hyp",
+    "test_file_flores":"./cc_en-ta/data/test_en-ta.ta",
+    "test_file_domain":"./cc_en-ta/data/test_en-ta.ta",
+    "sacrebleu_output":"./cc_en-ta/outputs/sacrebleu_{}.txt",
+    "bleu_output":"./cc_en-ta/outputs/bleu_{}.txt"
+  }
+}
