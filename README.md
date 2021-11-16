@@ -1,5 +1,5 @@
 
-# Low-Resource Language Domain adption
+# Sequence-to-Sequence Multilingual Pre-Trained Models: A Hope for Low-Resource Language Translation?
 
 ## Enviroment Setup
 
@@ -14,8 +14,6 @@
 ## 1. Open-Domain Training/Fine-tuning on cc_aligned
 
 ### 1.a. 100k cc_aligned English &#8594; XX
-
-<!--The script `run_opendomain_ft_English_to_xx.sh` renamed to `run_opendomain_ft_100k_English_to_xx.sh`. -->
 
     bash run_opendomain_ft_100k_English_to_xx.sh -l "<<language_name>>" > logs_run_opendomain_ft_100k_English_to_xx
 
